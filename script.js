@@ -10,8 +10,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database(app);
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
 
 // Button references
 const upButton = document.getElementById("up");
@@ -26,7 +26,7 @@ function sendOSCCommand(address, value) {
         value: value
     };
     // Save to Firebase (or send OSC command via backend)
-    const commandRef = database.ref('commands');
+    var commandRef = database.ref('commands');
     commandRef.set(command);  // Update Firebase with the current command
 }
 
