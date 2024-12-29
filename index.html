@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSC Command Sender</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>OSC Command Sender</h1>
+    <form id="commandForm">
+        <label for="address">OSC Address:</label><br>
+        <input type="text" id="address" name="address" placeholder="/osc/address"><br><br>
+        <label for="value">Value:</label><br>
+        <input type="number" id="value" name="value" placeholder="50"><br><br>
+        <button type="submit">Send Command</button>
+    </form>
+    <p id="status"></p>
+</body>
+</html>
