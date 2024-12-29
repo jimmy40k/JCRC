@@ -9,10 +9,7 @@ const firebaseConfig = {
   appId: "1:295890449842:web:f137afcaa6a73e19e760ab"
 };
 
-// Import Firebase SDK
-import firebase from "firebase/app";
-import "firebase/database";
-
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // Reference to Firebase Realtime Database
