@@ -9,24 +9,58 @@ const firebaseConfig = {
   appId: "1:295890449842:web:f137afcaa6a73e19e760ab"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+// Import Firebase SDK
+import firebase from "firebase/app";
+import "firebase/database";
 
-// Handle form submission
-const form = document.getElementById("commandForm");
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const address = document.getElementById("address").value;
-    const value = parseInt(document.getElementById("value").value, 10);
+firebase.initializeApp(firebaseConfig);
 
-    // Write command to Firebase
-    firebase.database().ref("/commands").set({
-        address: address,
-        value: value
-    }).then(() => {
-        document.getElementById("status").innerText = "Command sent successfully!";
-    }).catch((error) => {
-        document.getElementById("status").innerText = "Error sending command: " + error;
-    });
+// Reference to Firebase Realtime Database
+const db = firebase.database();
+
+// Function to update command in Firebase
+function updateCommand(address, value) {
+  const commandRef = db.ref('/commands');
+  commandRef.set({
+    address: address,
+    value: value
+  })
+  .then(() => {
+    console.log('Command updated successfully!');
+  })
+  .catch((error) => {
+    console.error('Error updating command:', error);
+  });
+}
+
+// Function to handle form submission
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  // Get values from the form
+  const addressInput = document.getElementById("addressInput").value;
+  const valueInput = parseInt(document.getElementById("valueInput").value, 10);
+
+  // Validate inputs (optional, but recommended)
+  if (addressInput.trim() === "" || isNaN(valueInput)) {
+    alert("Please enter a valid address and value.");
+    return;
+  }
+
+  // Update the command in Firebase
+  updateCommand(addressInput, valueInput);
+}
+
+// Event listener for form submission
+document.getElementById("commandForm").addEventListener("submit", handleFormSubmit);
+
+// Optional: You can also listen for changes from Firebase (if you want to display the last command)
+const commandRef = db.ref('/commands');
+commandRef.on('value', (snapshot) => {
+  const command = snapshot.val();
+  if (command) {
+    console.log('Current command:', command);
+    // Optionally display the current command in the GUI
+    document.getElementById("currentCommand").textContent = `Last Command: ${command.address} - Value: ${command.value}`;
+  }
 });
