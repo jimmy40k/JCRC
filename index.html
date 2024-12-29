@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gimbal Control</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your styles.css file -->
+    <title>Gimbal & Zoom Control</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="button-container">
-        <!-- Row 1 (Up) -->
+        <!-- Row 1 (Up/Down/Left/Right) -->
         <div class="button-row">
             <button id="up" class="btn">Up</button>
+            <button id="down" class="btn">Down</button>
         </div>
 
-        <!-- Row 2 (Left/Right) -->
         <div class="button-row">
             <button id="left" class="btn">Left</button>
             <button id="right" class="btn">Right</button>
         </div>
 
-        <!-- Row 3 (Down) -->
+        <!-- Speed Control (Slider for 1 to 100) -->
+        <div class="speed-control">
+            <label for="speed">Speed (1-100):</label>
+            <input type="range" id="speed" name="speed" min="1" max="100" value="20">
+            <span id="speed-value">20</span>
+        </div>
+
+        <!-- Zoom Controls -->
         <div class="button-row">
-            <button id="down" class="btn">Down</button>
+            <button id="zoomMax" class="btn">Zoom Max</button>
+            <button id="zoomMin" class="btn">Zoom Min</button>
+        </div>
+
+        <div class="zoom-control">
+            <label for="zoom">Zoom (0-100):</label>
+            <input type="number" id="zoom" name="zoom" min="0" max="100" value="50">
         </div>
     </div>
 
