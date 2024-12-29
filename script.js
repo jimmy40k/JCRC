@@ -10,54 +10,35 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
 
-// Reference to Firebase Realtime Database
-const db = firebase.database();
+// Button references
+const upButton = document.getElementById("up");
+const downButton = document.getElementById("down");
+const leftButton = document.getElementById("left");
+const rightButton = document.getElementById("right");
 
-// Function to update command in Firebase
-function updateCommand(address, value) {
-  const commandRef = db.ref('/commands');
-  commandRef.set({
-    address: address,
-    value: value
-  })
-  .then(() => {
-    console.log('Command updated successfully!');
-  })
-  .catch((error) => {
-    console.error('Error updating command:', error);
-  });
+// OSC Control Function
+function sendOSCCommand(address, value) {
+    const command = {
+        address: address,
+        value: value
+    };
+    // Save to Firebase (or send OSC command via backend)
+    const commandRef = database.ref('commands');
+    commandRef.set(command);  // Update Firebase with the current command
 }
 
-// Function to handle form submission
-function handleFormSubmit(event) {
-  event.preventDefault();
+// Handle button press and release
+upButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', 20));
+upButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', 0));
 
-  // Get values from the form
-  const addressInput = document.getElementById("addressInput").value;
-  const valueInput = parseInt(document.getElementById("valueInput").value, 10);
+downButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', 20));
+downButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', 0));
 
-  // Validate inputs (optional, but recommended)
-  if (addressInput.trim() === "" || isNaN(valueInput)) {
-    alert("Please enter a valid address and value.");
-    return;
-  }
+leftButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', 20));
+leftButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', 0));
 
-  // Update the command in Firebase
-  updateCommand(addressInput, valueInput);
-}
-
-// Event listener for form submission
-document.getElementById("commandForm").addEventListener("submit", handleFormSubmit);
-
-// Optional: You can also listen for changes from Firebase (if you want to display the last command)
-const commandRef = db.ref('/commands');
-commandRef.on('value', (snapshot) => {
-  const command = snapshot.val();
-  if (command) {
-    console.log('Current command:', command);
-    // Optionally display the current command in the GUI
-    document.getElementById("currentCommand").textContent = `Last Command: ${command.address} - Value: ${command.value}`;
-  }
-});
+rightButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', 20));
+rightButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', 0));
