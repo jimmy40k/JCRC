@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OSC Command GUI</title>
-  
-  <!-- Firebase v8 SDK (No ES modules) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  
-  <!-- Link to your custom script.js file -->
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimbal Control</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your styles.css file -->
 </head>
 <body>
-  <h1>Send OSC Command</h1>
+    <div class="button-container">
+        <!-- Row 1 (Up) -->
+        <div class="button-row">
+            <button id="up" class="btn">Up</button>
+        </div>
 
-  <form id="commandForm">
-    <label for="addressInput">OSC Address:</label>
-    <input type="text" id="addressInput" name="addressInput" placeholder="/osc/zoom" required>
-    <br>
-    <label for="valueInput">Value:</label>
-    <input type="number" id="valueInput" name="valueInput" placeholder="50" required>
-    <br><br>
-    <button type="submit">Send Command</button>
-  </form>
+        <!-- Row 2 (Left/Right) -->
+        <div class="button-row">
+            <button id="left" class="btn">Left</button>
+            <button id="right" class="btn">Right</button>
+        </div>
 
-  <h2 id="currentCommand">Last Command: Not yet sent</h2>
+        <!-- Row 3 (Down) -->
+        <div class="button-row">
+            <button id="down" class="btn">Down</button>
+        </div>
+    </div>
 
+    <!-- Include Firebase and external JS -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+
+    <!-- Link to your external script.js file -->
+    <script src="script.js"></script>
 </body>
 </html>
