@@ -29,8 +29,8 @@ const zoomSlider = document.getElementById("zoomSlider");
 const zoomValue = document.getElementById("zoom-value");
 
 // Store current speed and zoom value
-let currentSpeed = speedSlider.value;
-let currentZoom = zoomSlider.value;
+let currentSpeed = parseInt(speedSlider.value, 10);
+let currentZoom = parseInt(zoomSlider.value, 10);
 
 // OSC Control Function
 function sendOSCCommand(address, value) {
@@ -45,7 +45,7 @@ function sendOSCCommand(address, value) {
 
 // Update the current speed when the slider is changed
 speedSlider.addEventListener('input', () => {
-    currentSpeed = speedSlider.value;
+    currentSpeed = parseInt(speedSlider.value, 10);  // Convert to integer
     speedValue.textContent = currentSpeed;
     // Update Firebase with the speed (if required)
     sendOSCCommand('/OBSBOT/WebCam/General/SetSpeed', currentSpeed);
@@ -53,7 +53,7 @@ speedSlider.addEventListener('input', () => {
 
 // Update the current zoom when the slider is changed
 zoomSlider.addEventListener('input', () => {
-    currentZoom = zoomSlider.value;
+    currentZoom = parseInt(zoomSlider.value, 10);  // Convert to integer
     zoomValue.textContent = currentZoom;
     // Send the zoom value via OSC command
     sendOSCCommand('/OBSBOT/WebCam/General/SetZoom', currentZoom);
