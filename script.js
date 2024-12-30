@@ -48,7 +48,6 @@ speedSlider.addEventListener('input', () => {
     currentSpeed = parseInt(speedSlider.value, 10);  // Convert to integer
     speedValue.textContent = currentSpeed;
     // Update Firebase with the speed (if required)
-    sendOSCCommand('/OBSBOT/WebCam/General/SetSpeed', currentSpeed);
 });
 
 // Update the current zoom when the slider is changed
