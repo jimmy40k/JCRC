@@ -3,48 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gimbal & Zoom Control</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Camera Control</title>
+    <style>
+        #directional-buttons {
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left . right"
+                ". down .";
+            gap: 10px;
+            justify-items: center;
+        }
+
+        #move-up {
+            grid-area: up;
+        }
+
+        #move-down {
+            grid-area: down;
+        }
+
+        #move-left {
+            grid-area: left;
+        }
+
+        #move-right {
+            grid-area: right;
+        }
+
+        #control-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #manual-focus-control,
+        #zoom-control,
+        #speed-control {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="button-container">
-        <!-- Row 1 (Up/Down/Left/Right) -->
-        <div class="button-row">
-            <button id="up" class="btn">Up</button>
-            <button id="down" class="btn">Down</button>
+    <div id="control-panel">
+        <h1>Camera Control</h1>
+        
+        <div id="focus-toggle">
+            <label for="focus-mode">Focus Mode:</label>
+            <button id="toggle-focus">Auto Focus</button>
         </div>
 
-        <div class="button-row">
-            <button id="left" class="btn">Left</button>
-            <button id="right" class="btn">Right</button>
+        <div id="directional-buttons">
+            <button id="move-up">Up</button>
+            <button id="move-left">Left</button>
+            <button id="move-right">Right</button>
+            <button id="move-down">Down</button>
         </div>
 
-        <!-- Speed Control (Slider for 1 to 100) -->
-        <div class="speed-control">
-            <label for="speed">Speed (1-100):</label>
-            <input type="range" id="speed" name="speed" min="1" max="100" value="20">
-            <span id="speed-value">20</span>
+        <div id="speed-control">
+            <label for="speed-slider">Speed:</label>
+            <input type="range" id="speed-slider" min="1" max="100" value="20">
         </div>
 
-        <!-- Zoom Controls -->
-        <div class="button-row">
-            <button id="zoomMax" class="btn">Zoom Max</button>
-            <button id="zoomMin" class="btn">Zoom Min</button>
+        <div id="zoom-control">
+            <label for="zoom-slider">Zoom:</label>
+            <input type="range" id="zoom-slider" min="0" max="100" value="50">
+            <div id="zoom-buttons">
+                <button id="zoom-max">Zoom Max</button>
+                <button id="zoom-min">Zoom Min</button>
+            </div>
         </div>
 
-        <div class="zoom-control">
-            <label for="zoom">Zoom (0-100):</label>
-            <input type="range" id="zoomSlider" name="zoomSlider" min="0" max="100" value="50">
-            <span id="zoom-value">50</span>
+        <div id="manual-focus-control" style="display: none;">
+            <label for="focus-slider">Manual Focus:</label>
+            <input type="range" id="focus-slider" min="0" max="100" value="50">
         </div>
     </div>
 
-    <!-- Include Firebase SDK 8 -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
-    <!-- Link to your external script.js file -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
