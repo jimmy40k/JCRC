@@ -4,45 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera Control</title>
-    <style>
-        #directional-buttons {
-            display: grid;
-            grid-template-areas:
-                ". up ."
-                "left . right"
-                ". down .";
-            gap: 10px;
-            justify-items: center;
-        }
-
-        #move-up {
-            grid-area: up;
-        }
-
-        #move-down {
-            grid-area: down;
-        }
-
-        #move-left {
-            grid-area: left;
-        }
-
-        #move-right {
-            grid-area: right;
-        }
-
-        #control-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #manual-focus-control,
-        #zoom-control,
-        #speed-control {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="control-panel">
