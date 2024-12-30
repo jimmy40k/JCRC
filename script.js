@@ -25,7 +25,12 @@ const zoomMinButton = document.getElementById("zoomMin");
 const speedSlider = document.getElementById("speed");
 const speedValue = document.getElementById("speed-value");
 
-const zoomInput = document.getElementById("zoom");
+const zoomSlider = document.getElementById("zoomSlider");
+const zoomValue = document.getElementById("zoom-value");
+
+// Store current speed and zoom value
+let currentSpeed = speedSlider.value;
+let currentZoom = zoomSlider.value;
 
 // OSC Control Function
 function sendOSCCommand(address, value) {
@@ -38,34 +43,48 @@ function sendOSCCommand(address, value) {
     commandRef.set(command);  // Update Firebase with the current command
 }
 
-// Handle button press and release for Gimbal movement
-upButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', 20));
-upButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', 0));
-
-downButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', 20));
-downButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', 0));
-
-leftButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', 20));
-leftButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', 0));
-
-rightButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', 20));
-rightButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', 0));
-
-// Speed control (Slider change)
+// Update the current speed when the slider is changed
 speedSlider.addEventListener('input', () => {
-    speedValue.textContent = speedSlider.value;
-    // Send new speed value to Firebase (or backend)
-    sendOSCCommand('/OBSBOT/WebCam/General/SetSpeed', speedSlider.value);
+    currentSpeed = speedSlider.value;
+    speedValue.textContent = currentSpeed;
+    // Update Firebase with the speed (if required)
+    sendOSCCommand('/OBSBOT/WebCam/General/SetSpeed', currentSpeed);
 });
 
-// Zoom buttons (Zoom Max/Min)
-zoomMaxButton.addEventListener('click', () => sendOSCCommand('/OBSBOT/WebCam/General/SetZoomMax', 0));
-zoomMinButton.addEventListener('click', () => sendOSCCommand('/OBSBOT/WebCam/General/SetZoomMin', 0));
+// Update the current zoom when the slider is changed
+zoomSlider.addEventListener('input', () => {
+    currentZoom = zoomSlider.value;
+    zoomValue.textContent = currentZoom;
+    // Send the zoom value via OSC command
+    sendOSCCommand('/OBSBOT/WebCam/General/SetZoom', currentZoom);
+});
 
-// Zoom input (0-100)
-zoomInput.addEventListener('change', () => {
-    let zoomValue = zoomInput.value;
-    if (zoomValue < 0) zoomValue = 0;
-    if (zoomValue > 100) zoomValue = 100;
-    sendOSCCommand('/OBSBOT/WebCam/General/SetZoom', zoomValue);
+// Handle button press and release for Gimbal movement
+upButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', currentSpeed));
+upButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalUp', 0));
+
+downButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', currentSpeed));
+downButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalDown', 0));
+
+leftButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', currentSpeed));
+leftButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalLeft', 0));
+
+rightButton.addEventListener('mousedown', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', currentSpeed));
+rightButton.addEventListener('mouseup', () => sendOSCCommand('/OBSBOT/WebCam/General/SetGimbalRight', 0));
+
+// Zoom buttons (Zoom Max/Min)
+zoomMaxButton.addEventListener('click', () => {
+    // Set zoom value to 100
+    zoomSlider.value = 100;
+    zoomValue.textContent = 100;
+    // Send OSC command for Zoom Max
+    sendOSCCommand('/OBSBOT/WebCam/General/SetZoomMax', 0);
+});
+
+zoomMinButton.addEventListener('click', () => {
+    // Set zoom value to 0
+    zoomSlider.value = 0;
+    zoomValue.textContent = 0;
+    // Send OSC command for Zoom Min
+    sendOSCCommand('/OBSBOT/WebCam/General/SetZoomMin', 0);
 });
