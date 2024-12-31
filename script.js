@@ -1,12 +1,12 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAdlXlKIofoX2L_U_hvAVs3MW_arzb099o",
-  authDomain: "jcrc-54aa0.firebaseapp.com",
-  databaseURL: "https://jcrc-54aa0-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "jcrc-54aa0",
-  storageBucket: "jcrc-54aa0.firebasestorage.app",
-  messagingSenderId: "295890449842",
-  appId: "1:295890449842:web:f137afcaa6a73e19e760ab"
+    apiKey: "AIzaSyAdlXlKIofoX2L_U_hvAVs3MW_arzb099o",
+    authDomain: "jcrc-54aa0.firebaseapp.com",
+    databaseURL: "https://jcrc-54aa0-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "jcrc-54aa0",
+    storageBucket: "jcrc-54aa0.firebasestorage.app",
+    messagingSenderId: "295890449842",
+    appId: "1:295890449842:web:f137afcaa6a73e19e760ab"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -59,14 +59,14 @@ document.getElementById("zoom-min").addEventListener("click", () => {
     sendCommand("/OBSBOT/WebCam/General/SetZoomMin", 0);
 });
 
-
 // Focus mode toggle
 let isAutoFocus = true;
 document.getElementById("toggle-focus").addEventListener("click", () => {
     isAutoFocus = !isAutoFocus;
-    document.getElementById("toggle-focus").innerText = isAutoFocus ? "Auto Focus" : "Manual Focus";
+    document.getElementById("toggle-focus").innerText = isAutoFocus ? "Switch to Manual Focus" : "Switch to Auto Focus";
     document.getElementById("manual-focus-control").style.display = isAutoFocus ? "none" : "block";
     sendCommand("/OBSBOT/WebCam/General/SetAutoFocus", isAutoFocus ? 1 : 0);
+});
 
 // Manual focus slider
 document.getElementById("focus-slider").addEventListener("input", () => {
