@@ -10,11 +10,6 @@
     <div id="control-panel">
         <h1>Camera Control</h1>
         
-        <div id="focus-toggle">
-            <label for="focus-mode">Focus Mode:</label>
-            <button id="toggle-focus">Auto Focus</button>
-        </div>
-
         <div id="directional-buttons">
             <button id="move-up">Up</button>
             <button id="move-left">Left</button>
@@ -36,11 +31,16 @@
             </div>
         </div>
 
+        <div id="focus-toggle">
+            <label for="focus-mode">Focus Mode:</label>
+            <button id="toggle-focus">Auto Focus</button>
+            <span id="focus-indicator">Currently: Auto Focus</span> <!-- Focus Indicator -->
+        </div>
+        
         <div id="manual-focus-control" style="display: none;">
             <label for="focus-slider">Manual Focus:</label>
-            <input type="range" id="focus-slider" min="0" max="100" value="50">
+            <input type="range" id="focus-slider" min="0" max="100" value="50" aria-label="Set manual focus">
         </div>
-    </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
