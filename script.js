@@ -59,40 +59,14 @@ document.getElementById("zoom-min").addEventListener("click", () => {
     sendCommand("/OBSBOT/WebCam/General/SetZoomMin", 0);
 });
 
-// Focus Toggle Button
-const focusToggle = document.getElementById("toggle-focus");
-const focusIndicator = document.getElementById("focus-indicator");
-const manualFocusControl = document.getElementById("manual-focus-control");
 
-let isAutoFocus = true; // Default mode
-
-focusToggle.addEventListener("click", () => {
-    isAutoFocus = !isAutoFocus; // Toggle between auto and manual
-
-    if (isAutoFocus) {
-        // Update button and indicator for Auto Focus
-        focusToggle.textContent = "Switch to Manual Focus";
-        focusIndicator.textContent = "Currently: Auto Focus";
-        manualFocusControl.style.display = "none";
-
-        // Update Firebase for Auto Focus
-        firebase.database().ref("/commands").set({
-            address: "/OBSBOT/WebCam/General/SetAutoFocus",
-            value: 1,
-        });
-    } else {
-        // Update button and indicator for Manual Focus
-        focusToggle.textContent = "Switch to Auto Focus";
-        focusIndicator.textContent = "Currently: Manual Focus";
-        manualFocusControl.style.display = "block";
-
-        // Update Firebase for Manual Focus
-        firebase.database().ref("/commands").set({
-            address: "/OBSBOT/WebCam/General/SetAutoFocus",
-            value: 0,
-        });
-    }
-});
+// Focus mode toggle
+let isAutoFocus = true;
+document.getElementById("toggle-focus").addEventListener("click", () => {
+    isAutoFocus = !isAutoFocus;
+    document.getElementById("toggle-focus").innerText = isAutoFocus ? "Auto Focus" : "Manual Focus";
+    document.getElementById("manual-focus-control").style.display = isAutoFocus ? "none" : "block";
+    sendCommand("/OBSBOT/WebCam/General/SetAutoFocus", isAutoFocus ? 1 : 0);
 
 // Manual focus slider
 document.getElementById("focus-slider").addEventListener("input", () => {
