@@ -73,3 +73,8 @@ document.getElementById("focus-slider").addEventListener("input", () => {
     const focusValue = parseInt(document.getElementById("focus-slider").value);
     sendCommand("/OBSBOT/WebCam/General/SetManualFocus", focusValue);
 });
+
+// New functionality to wake up the camera
+document.getElementById("wake-up-camera").addEventListener("click", () => {
+    sendCommand("/OBSBOT/WebCam/General/WakeSleep", 1);  // Send the Wake command
+});
