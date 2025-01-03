@@ -76,5 +76,6 @@ document.getElementById("focus-slider").addEventListener("input", () => {
 
 // New functionality to wake up the camera
 document.getElementById("wake-up-camera").addEventListener("click", () => {
+    sendCommand("/OBSBOT/WebCam/General/WakeSleep", 0);  // Send the Sleep command to have a change in the database
     sendCommand("/OBSBOT/WebCam/General/WakeSleep", 1);  // Send the Wake command
 });
