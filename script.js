@@ -76,6 +76,11 @@ document.getElementById("focus-slider").addEventListener("input", () => {
 
 // New functionality to wake up the camera
 document.getElementById("wake-up-camera").addEventListener("click", () => {
-    sendCommand("/OBSBOT/WebCam/General/WakeSleep", 0);  // Send the Sleep command to have a change in the database
-    sendCommand("/OBSBOT/WebCam/General/WakeSleep", 1);  // Send the Wake command
+    // Send a dummy value to force Firebase to register the update (even if the value doesn't change)
+    sendCommand("/OBSBOT/WebCam/General/WakeSleep", 0);  // Temporarily set to 0 (Sleep)
+    
+    // Quickly send the actual wake-up command (1)
+    setTimeout(() => {
+        sendCommand("/OBSBOT/WebCam/General/WakeSleep", 1);  // Wake command
+    }, 100);  // Short delay to ensure Firebase registers the change
 });
